@@ -1,6 +1,6 @@
 #' Some RStudio addins
 #'
-#' @name straddin
+#' @name maddins
 #' @docType package
 #' @import rstudioapi
 NULL
