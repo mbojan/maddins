@@ -4,8 +4,8 @@
 \name{straddin}
 \alias{straddin}
 \alias{straddin-package}
-\title{Some RStudio addins easing code editing}
+\title{Some RStudio addins}
 \description{
-Some RStudio addins easing code editing
+Some RStudio addins
 }
 

@@ -10,6 +10,8 @@ glimpse_selection()
 str_selection()
 }
 \description{
-Glimpse at Object Selected in the Editor
+Select an object name in the RStudio code editor. Executing these addins will
+run \code{dplyr::glimpse} or \code{utils::str} on that object showing its
+content in a compact way.
 }
 

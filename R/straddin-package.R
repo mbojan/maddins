@@ -1,4 +1,4 @@
-#' Some RStudio addins easing code editing
+#' Some RStudio addins
 #'
 #' @name straddin
 #' @docType package
