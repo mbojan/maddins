@@ -1,10 +1,11 @@
-Package: straddin
+Package: maddins
 Type: Package
-Title: RStudio Addins
-Version: 0.1.0
+Title: Michal's RStudio Addins
+Version: 1.0-1
 Author: Michal Bojanowski
 Maintainer: Michal Bojanowski <michal2992@gmail.com>
 Description: Some RStudio addins, e.g. for str()
 License: MIT + file LICENSE
+Imports: dplyr, rstudioapi, utils
 LazyData: TRUE
 RoxygenNote: 5.0.1

@@ -28,8 +28,8 @@ str_selection <- function() {
 
 get_or_not <- function(objname) {
   # Has white space?
-  has_space <- grepl("[[:space:]]", objname)
-  if(has_space) stop("selection contains a white space")
+  if( grepl("[[:space:]]", objname) )
+    stop("selection contains a white space")
   # Try to get()
   tr <- try( get(objname) )
   if( inherits(tr, "try-error") ) {
