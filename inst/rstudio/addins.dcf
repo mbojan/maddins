@@ -1,0 +1,9 @@
+Name: glimpse at selection
+Description: Run dplyr::glimpse() on selected object
+Binding: glimpse_selection
+Interactive: false
+
+Name: str() at selection
+Description: Run utils::str() on selected object
+Binding: str_selection
+Interactive: false
