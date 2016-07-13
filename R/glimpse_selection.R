@@ -2,7 +2,7 @@
 #'
 #' Select an object name in the RStudio code editor. Executing these addins will
 #' run \code{dplyr::glimpse} or \code{utils::str} on that object showing its
-#' content in a compact way.
+#' content in a compact way in the Console.
 #'
 #' @name glimpse_selection
 NULL
@@ -12,7 +12,9 @@ NULL
 glimpse_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
   text <- context$selection[[1]]$text
-  dplyr::glimpse(get(text))
+  o <- get_from_text(text)
+  cat("Glimpse of", sQuote(text), ":\n")
+  dplyr::glimpse(o)
 }
 
 
@@ -21,22 +23,21 @@ glimpse_selection <- function() {
 str_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
   text <- context$selection[[1]]$text
-  o <- get_or_not(text)
-  cat("Staring at", text, ":\n")
+  o <- get_from_text(text)
+  cat("Structure of", sQuote(text), ":\n")
   utils::str(o)
 }
 
 
-
-get_or_not <- function(objname) {
-  # Has white space?
+get_from_text <- function(objname) {
+  # Has a white space?
   if( grepl("[[:space:]]", objname) )
     stop("selection contains a white space")
   # Try to get()
-  tr <- try( get(objname) )
-  if( inherits(tr, "try-error") ) {
-    stop("cannot find object with name: ", objname)
+  if( exists(objname) ) {
+    return( get(objname) )
   } else {
-    return(tr)
+    stop("cannot find object with name: ", objname)
   }
 }
+
