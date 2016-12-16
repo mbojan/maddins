@@ -50,15 +50,23 @@ do.call2 <- function(what, args, ...){
   eval(mycall, ...);
 }
 
-get_from_text <- function(objname) {
+
+# Get or evaluate selected expression
+get_from_text <- function(selection) {
   # Has a white space?
-  if( grepl("[[:space:]]", objname) )
-    stop("selection contains a white space")
   # Try to get()
-  if( exists(objname) ) {
-    return( get(objname) )
+  if( exists(selection) ) {
+    return( get(selection) )
   } else {
-    stop("cannot find object with name: ", objname)
+    # Try to parse
+    r1 <- try( parse(text=selection) )
+    if(inherits(r1, "try-error"))
+      stop("cannot parse selection")
+    # Try to evaluate
+    r2 <- try(eval(r1))
+    if(inherits(r2, "try-error"))
+      stop("cannot evaluate selection")
+    return(r2)
   }
 }
 
