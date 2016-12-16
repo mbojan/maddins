@@ -7,3 +7,8 @@ Name: str() on selection
 Description: Run utils::str() on selected object
 Binding: str_selection
 Interactive: false
+
+Name: Any function on selection
+Description: Run getOption("straddin.fun") on selected object
+Binding: any_selection
+Interactive: false

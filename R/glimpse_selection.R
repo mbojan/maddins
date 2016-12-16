@@ -28,6 +28,27 @@ str_selection <- function() {
   utils::str(o)
 }
 
+#' @rdname glimpse_selection
+#' @export
+any_selection <- function() {
+  context <- rstudioapi::getActiveDocumentContext()
+  text <- context$selection[[1]]$text
+  o <- get_from_text(text)
+  fun <- getOption("straddin.fun", "utils::str")
+  cat("Calling", sQuote(fun), "on", sQuote(text), ":\n")
+  do.call2(fun, list(o))
+}
+
+# do.call handling :: or :::
+# http://stackoverflow.com/questions/10022436/do-call-in-combination-with
+do.call2 <- function(what, args, ...){
+  if(is.function(what)){
+    what <- deparse(as.list(match.call())$what);
+  }
+  myfuncall <- parse(text=what)[[1]];
+  mycall <- as.call(c(list(myfuncall), args));
+  eval(mycall, ...);
+}
 
 get_from_text <- function(objname) {
   # Has a white space?
