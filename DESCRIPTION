@@ -9,3 +9,6 @@ License: MIT + file LICENSE
 Imports: dplyr, rstudioapi, utils
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
