@@ -53,7 +53,8 @@ do.call2 <- function(what, args, ...){
 
 # Get or evaluate selected expression
 get_from_text <- function(selection) {
-  # Has a white space?
+  # Trim and remove leading/trailing newlines
+  selection <- trimws(selection, which = "both")
   # Try to get()
   if( exists(selection) ) {
     return( get(selection) )
