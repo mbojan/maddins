@@ -52,22 +52,27 @@ do.call2 <- function(what, args, ...){
 
 
 # Get or evaluate selected expression
-get_from_text <- function(selection) {
+get_from_text <- function(txt) {
   e <- parent.frame()
-  # Trim and remove leading/trailing newlines
-  selection <- trimws(selection, which = "both")
+  # Trim and remove leading/trailing spaces and newlines
+  txt <- trimws(txt, which = "both")
   # Try to get()
-  if( exists(selection, envir = e) ) {
-    return( get(selection, envir = e) )
+  if( exists(txt, envir = e) ) {
+    return( get(txt, envir = e) )
   } else {
+    errmsg <- paste("cannot find object ", dQuote(txt))
     # Try to parse
-    r1 <- try( parse(text=selection) )
-    if(inherits(r1, "try-error"))
-      stop("cannot parse selection")
+    r1 <- try(parse(text=txt), silent = TRUE)
+    if(inherits(r1, "try-error")) {
+      err <- append(errmsg, paste("cannot parse text", dQuote(txt), ":", r1))
+      stop("\n", paste(paste("-", err), collapse="\n"))
+    }
     # Try to evaluate
-    r2 <- try(eval(r1))
-    if(inherits(r2, "try-error"))
-      stop("cannot evaluate selection")
+    r2 <- try(eval(r1), silent = TRUE)
+    if(inherits(r2, "try-error")) {
+      err <- append(errmsg, paste("cannot evaluate expresssion", sQuote(r1), ":", r2))
+      stop("\n", paste(paste("-", err), collapse="\n"))
+    }
     return(r2)
   }
 }
