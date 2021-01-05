@@ -52,14 +52,14 @@ do.call2 <- function(what, args, ...){
 
 
 # Get or evaluate selected expression
-get_from_text <- function(selection, ...) {
+get_from_text <- function(selection) {
+  e <- parent.frame()
   # Trim and remove leading/trailing newlines
   selection <- trimws(selection, which = "both")
   # Try to get()
-  if( exists(selection, ...) ) {
-    return( get(selection, ...) )
+  if( exists(selection, envir = e) ) {
+    return( get(selection, envir = e) )
   } else {
-    print(ls(..., all=TRUE))
     # Try to parse
     r1 <- try( parse(text=selection) )
     if(inherits(r1, "try-error"))
